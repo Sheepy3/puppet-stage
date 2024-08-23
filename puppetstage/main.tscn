@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1n4l48hpdlvl"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_h8lw1"]
+[ext_resource type="PackedScene" uid="uid://buk4hi5whq5mp" path="res://puppet.tscn" id="2_xjmcy"]
+
+[node name="main" type="Node2D"]
+position = Vector2(495, 276)
+script = ExtResource("1_h8lw1")
+puppet_scene = ExtResource("2_xjmcy")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://puppet.tscn")
+spawn_path = NodePath("..")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 137.0
+offset_bottom = 114.0
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -22.0
+offset_right = 22.0
+offset_bottom = 66.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Host" type="Button" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Join"
+
+[node name="SpawnPuppet" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Spawn Puppet"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SpawnPuppet" to="." method="_on_spawn_puppet_pressed"]
