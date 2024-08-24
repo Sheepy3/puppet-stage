@@ -7,17 +7,14 @@
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:sprite")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prsjb"]
 radius = 91.0055
 
-[node name="Puppet" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Puppet" type="Node2D"]
 script = ExtResource("1_05bsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -31,4 +28,37 @@ replication_config = SubResource("SceneReplicationConfig_j1gul")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_prsjb")
 
+[node name="Panel" type="Panel" parent="."]
+offset_right = 309.0
+offset_bottom = 242.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpriteURL" type="TextEdit" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Input Sprite URL"
+
+[node name="Update" type="Button" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Submit"
+
+[node name="Size_Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Size"
+
+[node name="Size_Slider" type="HSlider" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="pressed" from="Panel/VBoxContainer/Update" to="." method="_on_update_pressed"]

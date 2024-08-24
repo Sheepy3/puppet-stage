@@ -10,7 +10,7 @@ resource_name = "SpectrumAnalyzer"
 [resource]
 bus/1/name = &"Record"
 bus/1/solo = false
-bus/1/mute = false
+bus/1/mute = true
 bus/1/bypass_fx = false
 bus/1/volume_db = -4.25003
 bus/1/send = &"Master"
