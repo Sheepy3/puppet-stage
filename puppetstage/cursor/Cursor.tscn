@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://bswq7q2xsnoyd"]
+
+[ext_resource type="Script" path="res://cursor/Cursor.gd" id="1_moou7"]
+[ext_resource type="Shader" path="res://cursor/Cursor.gdshader" id="2_036w2"]
+[ext_resource type="Texture2D" uid="uid://eyyuwitmxqma" path="res://icon.svg" id="3_bqsb3"]
+[ext_resource type="Script" path="res://cursor/CursorVisual.gd" id="4_cn10k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_akd2o"]
+shader = ExtResource("2_036w2")
+shader_parameter/rot_angle = 0.0
+shader_parameter/circle_radius = 0.2
+shader_parameter/drag = 0.0
+shader_parameter/outline_thickness = 0.01
+shader_parameter/official_color = Vector4(0.953, 0.533, 1, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gm3d7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Cursor" type="Node2D"]
+script = ExtResource("1_moou7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_akd2o")
+texture = ExtResource("3_bqsb3")
+script = ExtResource("4_cn10k")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_gm3d7")

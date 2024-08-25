@@ -22,3 +22,7 @@ driver/enable_input=true
 [autoload]
 
 HttpHandler="*res://HTTP_Handler.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tile-instances/plugin.cfg")

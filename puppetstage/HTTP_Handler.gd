@@ -9,17 +9,18 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func make_request(url) -> Texture:
+func make_request(url) -> Image:
+	print(url)
 	var error = request(url)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 	await request_completed
-	var texture = ImageTexture.create_from_image(image)
-	return texture
+	#var texture = ImageTexture.create_from_image(image)
+	return image
 
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	print("function called")
+	print("HTTPS Request completed!")
 	#var image = Image.new()
 	image = Image.new()
 	var error = image.load_png_from_buffer(body)

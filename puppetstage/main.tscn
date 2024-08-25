@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1n4l48hpdlvl"]
+[gd_scene load_steps=5 format=3 uid="uid://b1n4l48hpdlvl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_h8lw1"]
 [ext_resource type="PackedScene" uid="uid://buk4hi5whq5mp" path="res://puppet.tscn" id="2_xjmcy"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_phvn7"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_qtdfm"]
+font_size = 71
+
 [node name="main" type="Node2D"]
-position = Vector2(495, 276)
 script = ExtResource("1_h8lw1")
 puppet_scene = ExtResource("2_xjmcy")
 
@@ -20,8 +22,17 @@ autoplay = true
 bus = &"Record"
 
 [node name="Menu" type="Panel" parent="."]
-offset_right = 137.0
-offset_bottom = 114.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -57.0
+offset_right = 68.5
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
@@ -48,6 +59,21 @@ text = "Join"
 [node name="SpawnPuppet" type="Button" parent="Menu/VBoxContainer"]
 layout_mode = 2
 text = "Spawn Puppet"
+
+[node name="NetworkStatus" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -495.0
+offset_top = -276.0
+offset_right = -252.0
+offset_bottom = -164.0
+text = "LOCAL"
+label_settings = SubResource("LabelSettings_qtdfm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://cursor/Cursor.tscn")
+spawn_path = NodePath("..")
 
 [connection signal="pressed" from="Menu/VBoxContainer/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Join" to="." method="_on_join_pressed"]
