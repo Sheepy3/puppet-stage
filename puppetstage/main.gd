@@ -8,7 +8,7 @@ var bus_index
 var spectrum_analyzer
 var analyzer_instance:AudioEffectInstance
 var test:AudioEffectSpectrumAnalyzerInstance
-
+var ip:String
 func _ready():
 	bus_index = AudioServer.get_bus_index("Record")
 	analyzer_instance = AudioServer.get_bus_effect_instance(bus_index, 1)
@@ -27,8 +27,8 @@ func _on_host_pressed():
 	%Join.hide()
 	_spawn_cursor()
 
-func _on_join_pressed():
-	peer.create_client("localhost", 135)
+func _on_join_pressed(ip = "localhost"):
+	peer.create_client(ip, 135)
 	HttpHandler.is_multiplayer = true
 	multiplayer.multiplayer_peer = peer
 	%NetworkStatus.text = "PEER"

@@ -31,16 +31,18 @@ func update_position(sent_final_position):
 	position = sent_final_position
 
 @rpc("any_peer","call_local")
-func update_sprite(data):
+func update_sprite(url):
 	print(multiplayer.get_unique_id())
 	if multiplayer.is_server():
-		sprite = data
+		sprite = url
 		prev_sprite = sprite
 		print("updating sprite")
 		var new_sprite = await HttpHandler.make_request(sprite)
+		new_sprite = default_scale_resize(new_sprite)
 		if new_sprite:
 			var new_texture = ImageTexture.create_from_image(new_sprite)
 			%Sprite2D.set_texture(new_texture)
+			update_size(%Size_Slider.value)
 			update_sprite_local.rpc(new_sprite.get_width(),new_sprite.get_height(),new_sprite.get_format(),new_sprite.get_data())
 		
 @rpc("authority","call_remote")
@@ -67,3 +69,17 @@ func _on_update_pressed() -> void:
 func _on_size_slider_value_changed(value: float) -> void:
 	update_size.rpc(value)
 	pass # Replace with function body.
+
+func default_scale_resize(image:Image) -> Image:
+	const resize_width = 1000
+	var height:float = image.get_height()
+	var width = image.get_width()
+	var ratio = height/width
+	print(height)
+	print(width)
+	print(ratio)
+	var new_image = Image.new()
+	new_image.copy_from(image)
+	new_image.generate_mipmaps()
+	new_image.resize(resize_width, resize_width*ratio)
+	return new_image

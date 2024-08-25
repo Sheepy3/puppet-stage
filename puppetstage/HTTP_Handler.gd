@@ -23,8 +23,27 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	print("HTTPS Request completed!")
 	#var image = Image.new()
 	image = Image.new()
+	
 	var error = image.load_png_from_buffer(body)
 	if error != OK:
-		push_error("Couldn't load the image.")
+		push_warning("PNG loading failed.")
+	else:
+		return
+	error = image.load_jpg_from_buffer(body)
+	if error != OK:
+		push_warning("JPEG loading failed.")
+	else:
+		return
+	error = image.load_svg_from_buffer(body)
+	if error != OK:
+		push_warning("SVG loading failed.")
+	else:
+		return
+	error = image.load_webp_from_buffer(body)
+	if error != OK:
+		push_warning("WEBP loading failed.")
+	else:
+		return
+	push_error("unable to grab image from url.")
 
 #	var texture = ImageTexture.create_from_image(image)
