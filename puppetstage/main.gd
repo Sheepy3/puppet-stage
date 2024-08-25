@@ -36,10 +36,12 @@ func _on_join_pressed():
 	%Join.hide()
 
 func _spawn_cursor(id = 1):
-	print(id)
+	if not multiplayer.is_server():
+		return
+	#print(id)
 	var new_cursor = cursor.instantiate()
 	new_cursor.name = str(id)
-	add_child(new_cursor,true)
+	call_deferred("add_child",new_cursor,true)
 
 func _on_spawn_puppet_pressed() -> void:
 	_spawn_puppet.rpc()
