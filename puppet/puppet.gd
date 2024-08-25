@@ -64,7 +64,7 @@ func update_sprite(url):
 func update_sprite_local(width,height,format,data):
 	print("called")
 	#create_from_data(width: int, height: int, use_mipmaps: bool, format: Format, data: PackedByteArray) static
-	var new_sprite = Image.create_from_data(width,height,false,format,data)
+	var new_sprite = Image.create_from_data(width,height,true,format,data)
 	var new_texture = ImageTexture.create_from_image(new_sprite)
 	%Sprite2D.set_texture(new_texture)
 	
