@@ -7,24 +7,39 @@ var final_position
 @export var sprite:String
 var prev_sprite:String
 @export var focused:bool
-
+@export var panel_visible:bool
+@export var possession_color:String
 
 func _process(_delta: float) -> void:
 	if dragging:
 		position = start_position + get_global_mouse_position() - drag_start
 		update_position.rpc(position)
-	$Panel/VBoxContainer/Sprite_Label.text = sprite
-	$Panel/VBoxContainer/Sprite_Label2.text = prev_sprite
+	if focused:
+		pass
 
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				dragging = true
-				drag_start = get_global_mouse_position()
-				start_position = position
-			else:
-				dragging = false
+		if %Area2D.get_overlapping_areas():
+			focused = true
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				if event.pressed:
+					dragging = true
+					drag_start = get_global_mouse_position()
+					start_position = position
+				else:
+					dragging = false
+			if event.button_index == MOUSE_BUTTON_RIGHT &&  event.pressed:
+				panel_visible = !panel_visible
+				if panel_visible:
+					%Panel.show()
+				else:
+					%Panel.hide()
+		else:
+			focused = false
+	pass
+
+
+
 
 @rpc("any_peer","call_local")
 func update_position(sent_final_position):
@@ -57,6 +72,10 @@ func update_sprite_local(width,height,format,data):
 func update_size(size):
 	var new_scale = Vector2(size,size)
 	%Sprite2D.set_scale(new_scale)
+	var updated_collision_shape = %CollisionShape2D.get_shape()
+	print(updated_collision_shape)
+	updated_collision_shape.set_radius(400*size)
+	%CollisionShape2D.set_shape(updated_collision_shape)
 	pass
 
 func _on_update_pressed() -> void:
@@ -75,9 +94,9 @@ func default_scale_resize(image:Image) -> Image:
 	var height:float = image.get_height()
 	var width = image.get_width()
 	var ratio = height/width
-	print(height)
-	print(width)
-	print(ratio)
+	#print(height)
+	#print(width)
+	#print(ratio)
 	var new_image = Image.new()
 	new_image.copy_from(image)
 	new_image.generate_mipmaps()

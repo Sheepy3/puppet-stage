@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://buk4hi5whq5mp"]
 
-[ext_resource type="Script" path="res://puppet.gd" id="1_05bsq"]
+[ext_resource type="Script" path="res://puppet/puppet.gd" id="1_05bsq"]
 [ext_resource type="Texture2D" uid="uid://eyyuwitmxqma" path="res://icon.svg" id="1_fh2my"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j1gul"]
@@ -22,20 +22,25 @@ script = ExtResource("1_05bsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -55)
 texture = ExtResource("1_fh2my")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_j1gul")
 
 [node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
 shape = SubResource("CircleShape2D_prsjb")
 
 [node name="Panel" type="Panel" parent="."]
-offset_right = 309.0
-offset_bottom = 242.0
+unique_name_in_owner = true
+visible = false
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 409.0
+offset_bottom = 342.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -50,6 +55,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 placeholder_text = "Input Sprite URL"
+wrap_mode = 1
 
 [node name="Update" type="Button" parent="Panel/VBoxContainer"]
 unique_name_in_owner = true
@@ -67,12 +73,14 @@ layout_mode = 2
 min_value = 0.1
 max_value = 2.0
 step = 0.01
-value = 0.5
+value = 0.1
 
 [node name="Sprite_Label" type="Label" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Sprite_Label2" type="Label" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]

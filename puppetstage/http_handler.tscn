@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dp2et361k1kfv"]
-
-[ext_resource type="Script" path="res://HTTP_Handler.gd" id="1_bfixb"]
-
-[node name="HTTPRequest" type="HTTPRequest"]
-script = ExtResource("1_bfixb")
-
-[connection signal="request_completed" from="." to="." method="_on_request_completed"]

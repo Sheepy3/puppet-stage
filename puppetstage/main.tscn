@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1n4l48hpdlvl"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_h8lw1"]
-[ext_resource type="PackedScene" uid="uid://buk4hi5whq5mp" path="res://puppet.tscn" id="2_xjmcy"]
+[ext_resource type="PackedScene" uid="uid://buk4hi5whq5mp" path="res://puppet/puppet.tscn" id="2_xjmcy"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_phvn7"]
 
@@ -13,7 +13,6 @@ script = ExtResource("1_h8lw1")
 puppet_scene = ExtResource("2_xjmcy")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://puppet.tscn")
 spawn_path = NodePath("..")
 
 [node name="MicrophoneInput" type="AudioStreamPlayer" parent="."]
