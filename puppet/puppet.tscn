@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://buk4hi5whq5mp"]
 
 [ext_resource type="Script" path="res://puppet/puppet_main.gd" id="1_05bsq"]
-[ext_resource type="Image" uid="uid://cpaftfv0v0kea" path="res://balloon_kid.png" id="3_7tmck"]
+[ext_resource type="Texture2D" uid="uid://cpaftfv0v0kea" path="res://balloon_kid.png" id="3_7tmck"]
 [ext_resource type="Script" path="res://puppet/puppet_sprite.gd" id="3_nox5t"]
 [ext_resource type="Script" path="res://puppet/puppet_ui.gd" id="4_e711u"]
 
@@ -24,8 +24,8 @@ script = ExtResource("1_05bsq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+texture = ExtResource("3_7tmck")
 script = ExtResource("3_nox5t")
-default_asset = ExtResource("3_7tmck")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_j1gul")

@@ -1,12 +1,8 @@
 extends Sprite2D
 @onready var Puppet = get_parent()
 @onready var EditPanel = %Panel
-@export var default_asset:Image
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var default_resized = default_scale_resize(default_asset)
-	var new_texture = ImageTexture.create_from_image(default_resized)
-	set_texture(new_texture)
 	update_size.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
