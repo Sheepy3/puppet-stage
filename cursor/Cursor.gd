@@ -10,7 +10,6 @@ func _enter_tree():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	if is_multiplayer_authority():
-		print(get_multiplayer_authority())
 		position = get_global_mouse_position()
 
 func _input(input:InputEvent) -> void:

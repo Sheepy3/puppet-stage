@@ -21,49 +21,54 @@ stream = SubResource("AudioStreamMicrophone_phvn7")
 autoplay = true
 bus = &"Record"
 
-[node name="Menu" type="Panel" parent="."]
+[node name="Menu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -68.0
-offset_top = -57.0
-offset_right = 69.0
-offset_bottom = 90.0
+offset_left = -75.0
+offset_top = -92.5
+offset_right = 75.0
+offset_bottom = 92.5
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -22.0
-offset_right = 22.0
-offset_bottom = 66.0
-grow_horizontal = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 
-[node name="IP Input" type="TextEdit" parent="Menu/VBoxContainer"]
+[node name="SpawnPuppet" type="Button" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spawn Puppet"
+
+[node name="Networking_UI" type="VBoxContainer" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="IPInput" type="TextEdit" parent="Menu/VBoxContainer/Networking_UI"]
+custom_minimum_size = Vector2(150, 38)
+layout_mode = 2
+placeholder_text = "IP"
+
+[node name="PortInput" type="TextEdit" parent="Menu/VBoxContainer/Networking_UI"]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "Help"
+placeholder_text = "Port"
 
-[node name="Host" type="Button" parent="Menu/VBoxContainer"]
+[node name="Host" type="Button" parent="Menu/VBoxContainer/Networking_UI"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="Menu/VBoxContainer"]
+[node name="Join" type="Button" parent="Menu/VBoxContainer/Networking_UI"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
-
-[node name="SpawnPuppet" type="Button" parent="Menu/VBoxContainer"]
-layout_mode = 2
-text = "Spawn Puppet"
 
 [node name="NetworkStatus" type="Label" parent="."]
 unique_name_in_owner = true
@@ -80,6 +85,6 @@ label_settings = SubResource("LabelSettings_qtdfm")
 _spawnable_scenes = PackedStringArray("res://cursor/Cursor.tscn")
 spawn_path = NodePath("..")
 
-[connection signal="pressed" from="Menu/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Menu/VBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/SpawnPuppet" to="." method="_on_spawn_puppet_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Networking_UI/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Networking_UI/Join" to="." method="_on_join_pressed"]
