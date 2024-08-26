@@ -6,7 +6,7 @@ func _ready() -> void:
 func _enter_tree():
 	#print(name)
 	set_multiplayer_authority(name.to_int())
-	
+	$Area2D.name = name
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float) -> void:
 	if is_multiplayer_authority():

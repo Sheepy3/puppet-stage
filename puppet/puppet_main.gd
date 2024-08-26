@@ -9,11 +9,13 @@ var prev_sprite:String
 @export var focused:bool
 @export var panel_visible:bool = false
 @export var possession_color:String
-
+@export var possessor:int
 @onready var Sprite = %Sprite2D
 @onready var EditPanel = %Panel
 
 func _process(_delta: float) -> void:
+	#if possessor !=0:
+	%Possessor.text = str(possessor)
 	if dragging:
 		position = start_position + get_global_mouse_position() - drag_start
 		update_position.rpc(position)
@@ -23,11 +25,22 @@ func _process(_delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseButton:
 		if %Area2D.get_overlapping_areas():
+			print("clicked")
+			for areas in %Area2D.get_overlapping_areas():
+				update_possessor.rpc(int(str(areas.name)))
 			focused = true
 			custom_handle_input(event)
+			
 		else:
 			focused = false
+			update_possessor.rpc(0)
 	pass
+
+@rpc("any_peer","call_local")
+func update_possessor(possessorid):
+	possessor = possessorid
+	%Possessor.text = str(possessor)
+
 
 func custom_handle_input(event):
 	if event.button_index == MOUSE_BUTTON_LEFT:

@@ -30,7 +30,7 @@ func _process(_delta):
 	if analyzer_instance:
 		var magnitude = analyzer_instance.get_magnitude_for_frequency_range(0, 10000,1)
 		HttpHandler.local_volume = remap(magnitude.length(),0,0.5,0.1,0.5)
-		print(HttpHandler.local_volume)
+		#print(HttpHandler.local_volume)
 
 func _on_host_pressed():
 	peer.create_server(135)

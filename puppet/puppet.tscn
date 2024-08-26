@@ -15,6 +15,9 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:puppet_sprite")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+properties/3/path = NodePath(".:possessor")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_prsjb"]
 radius = 91.0055
@@ -83,6 +86,10 @@ value = 0.1
 [node name="Send_To_origin" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 text = "Send to origin"
+
+[node name="Possessor" type="Label" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
