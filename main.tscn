@@ -17,10 +17,6 @@ font_size = 24
 script = ExtResource("1_h8lw1")
 puppet_scene = ExtResource("2_xjmcy")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://puppet/puppet.tscn")
-spawn_path = NodePath("..")
-
 [node name="MicrophoneInput" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_phvn7")
 autoplay = true

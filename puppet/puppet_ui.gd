@@ -1,9 +1,11 @@
 extends Panel
 
-@onready var Sprite = %Sprite2D
-@onready var Puppet = get_parent()
+var Sprite
+var Puppet
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Sprite = %Sprite2D
+	Puppet = get_parent()
 	pass # Replace with function body.
 
 

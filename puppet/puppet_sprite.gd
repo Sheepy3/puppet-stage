@@ -1,9 +1,11 @@
 extends Sprite2D
 @onready var Puppet = get_parent()
 @onready var EditPanel = %Panel
+#@export var base_scale:float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	update_size.rpc()
+	if multiplayer.get_unique_id() != 1:
+		update_size.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -15,9 +17,6 @@ func default_scale_resize(image:Image) -> Image:
 	var height:float = image.get_height()
 	var width = image.get_width()
 	var ratio = height/width
-	#print(height)
-	#print(width)
-	#print(ratio)
 	var new_image = Image.new()
 	new_image.copy_from(image)
 	new_image.generate_mipmaps()
@@ -49,10 +48,10 @@ func update_sprite_local(width,height,format,data):
 	
 @rpc("any_peer","call_local")
 func update_size(size:float = 0.4):
-	var new_scale = Vector2(size,size)
-	set_scale(new_scale)
+	var base_scale = Vector2(size,size)
+	set_scale(base_scale)
+	#base_scale = new_scale
 	var updated_collision_shape = %CollisionShape2D.get_shape()
 	#print(updated_collision_shape)
 	updated_collision_shape.set_radius(400*size)
 	%CollisionShape2D.set_shape(updated_collision_shape)
-	pass

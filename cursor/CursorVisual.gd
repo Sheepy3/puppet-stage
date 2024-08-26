@@ -9,7 +9,7 @@ var current_radius:float
 func _ready() -> void:
 	previous_mouse_position = get_global_mouse_position()
 
-func _process(delta:float) -> void:
+func _process(_delta:float) -> void:
 	target_radius = HttpHandler.local_volume
 
 func _enter_tree() -> void:
