@@ -1,11 +1,13 @@
 extends Sprite2D
 @onready var Puppet = get_parent()
 @onready var EditPanel = %Panel
-
+@export var default_asset:Image
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	update_size()
-
+	var default_resized = default_scale_resize(default_asset)
+	var new_texture = ImageTexture.create_from_image(default_resized)
+	set_texture(new_texture)
+	update_size.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -50,7 +52,7 @@ func update_sprite_local(width,height,format,data):
 	set_texture(new_texture)
 	
 @rpc("any_peer","call_local")
-func update_size(size:float = 1):
+func update_size(size:float = 0.4):
 	var new_scale = Vector2(size,size)
 	set_scale(new_scale)
 	var updated_collision_shape = %CollisionShape2D.get_shape()
