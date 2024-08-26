@@ -4,11 +4,11 @@ extends Sprite2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	update_size()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -28,7 +28,7 @@ func default_scale_resize(image:Image) -> Image:
 
 @rpc("any_peer","call_local")
 func update_sprite(url):
-	print(multiplayer.get_unique_id())
+	#print(multiplayer.get_unique_id())
 	if multiplayer.is_server():
 		Puppet.puppet_sprite = url
 		Puppet.prev_sprite = Puppet.puppet_sprite
@@ -50,11 +50,11 @@ func update_sprite_local(width,height,format,data):
 	set_texture(new_texture)
 	
 @rpc("any_peer","call_local")
-func update_size(size):
+func update_size(size:float = 1):
 	var new_scale = Vector2(size,size)
 	set_scale(new_scale)
 	var updated_collision_shape = %CollisionShape2D.get_shape()
-	print(updated_collision_shape)
+	#print(updated_collision_shape)
 	updated_collision_shape.set_radius(400*size)
 	%CollisionShape2D.set_shape(updated_collision_shape)
 	pass

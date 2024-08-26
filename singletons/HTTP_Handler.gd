@@ -18,21 +18,32 @@ func make_request(url) -> Image:
 	#var texture = ImageTexture.create_from_image(image)
 	return image
 
-func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func _on_request_completed(_result: int, _response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	print("HTTPS Request completed!")
 	image = Image.new()
+	var unpacked_headers = " ".join(headers)
+
+	var regex = RegEx.new()
+	regex.compile(r"image/([^\s]+)")
+	var result = regex.search(unpacked_headers)
+	result = result.get_string(1).to_upper()
+	print(result)
+	var format
 	
-	var image_formats = [
-		{"loader": "load_png_from_buffer", "name": "PNG"},
-		{"loader": "load_jpg_from_buffer", "name": "JPEG"},
-		{"loader": "load_svg_from_buffer", "name": "SVG"},
-		{"loader": "load_webp_from_buffer", "name": "WEBP"}
-	]
-	
-	for format in image_formats:
-		var error = image.call(format["loader"], body)
-		if error == OK:
-			return
-		push_warning("format ",format["name"]," loading failed.")
+	match result:
+		"PNG":
+			format = {"loader": "load_png_from_buffer", "name": "PNG"}
+		"SVG":
+			format = {"loader": "load_svg_from_buffer", "name": "SVG"}
+		"WEBP":
+			format = {"loader": "load_webp_from_buffer", "name": "WEBP"}
+		"JPEG":
+			format = {"loader": "load_jpg_from_buffer", "name": "JPEG"}
+		_:
+			push_error("Unable to grab content type from header.")
+
+	var error = image.call(format["loader"], body)
+	if error == OK:
+		return
 	
 	push_error("Unable to grab image from URL.")

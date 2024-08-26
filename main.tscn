@@ -41,7 +41,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="SpawnPuppet" type="Button" parent="Menu/VBoxContainer"]
+[node name="Prop_Spawning" type="VBoxContainer" parent="Menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpawnPuppet" type="Button" parent="Menu/VBoxContainer/Prop_Spawning"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Spawn Puppet"
@@ -85,6 +88,6 @@ label_settings = SubResource("LabelSettings_qtdfm")
 _spawnable_scenes = PackedStringArray("res://cursor/Cursor.tscn")
 spawn_path = NodePath("..")
 
-[connection signal="pressed" from="Menu/VBoxContainer/SpawnPuppet" to="." method="_on_spawn_puppet_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Prop_Spawning/SpawnPuppet" to="." method="_on_spawn_puppet_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Networking_UI/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/Networking_UI/Join" to="." method="_on_join_pressed"]

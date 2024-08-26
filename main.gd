@@ -40,7 +40,7 @@ func _on_host_pressed():
 	_spawn_cursor()
 
 
-func _on_join_pressed(ip = "localhost"):
+func _on_join_pressed():
 	peer.create_client(ip, 135)
 	HttpHandler.is_multiplayer = true
 	multiplayer.multiplayer_peer = peer
