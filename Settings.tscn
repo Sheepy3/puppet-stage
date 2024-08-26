@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://crxxo8eybu4w1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b4urn"]
+font_size = 71
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -298.0
+offset_top = -300.0
+grow_horizontal = 0
+grow_vertical = 0
+can_add_swatches = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="Label" type="Label" parent="ColorPicker"]
+layout_mode = 2
+text = "Cursor Color Settings"
+
+[node name="NetworkStatus" type="Label" parent="."]
+unique_name_in_owner = true
+size_flags_horizontal = 0
+text = "LOCAL"
+label_settings = SubResource("LabelSettings_b4urn")

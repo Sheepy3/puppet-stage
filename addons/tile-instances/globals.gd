@@ -34,14 +34,14 @@ func tile_window(i:int, total:int) -> void:
 	printt(window_rect, screen_rect)
 	match total:
 		2:
-			window.size = Vector2((screen_rect.size.x / 2),window.size.y)
+			#window.size = Vector2((screen_rect.size.x / 2),window.size.y)
 			#window.position.x = (screen_rect.size.x / 2 - window_rect.size.x / 2)
 			#window.position.y = (screen_rect.size.y / 2 - window_rect.size.y / 2)
 			if i == 0:
-				window.position.x -= ((screen_rect.size.x/2)-((window.size.x/2)+100))#-100
+				window.position.x -= ((screen_rect.size.x/2)-((window.size.x/2)-100))#-100
 				pass
 			else:
-				window.position.x += ((screen_rect.size.x/2)-((window.size.x/2)-100))
+				window.position.x += ((screen_rect.size.x/2)-((window.size.x/2)-50))
 				pass
 		3:
 			pass

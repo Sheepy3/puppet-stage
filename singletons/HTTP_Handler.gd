@@ -1,7 +1,10 @@
 extends HTTPRequest
 var image:Image
-var is_multiplayer:bool = false
 
+### awkwardly placed global vars
+var is_multiplayer:bool = false
+var local_volume:float
+var cursor_color:Color
 
 func _ready() -> void:
 	request_completed.connect(self._on_request_completed)

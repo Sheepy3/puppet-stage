@@ -22,9 +22,7 @@ func _process(_delta: float) -> void:
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if focused:
-			custom_handle_input(event)
-		elif %Area2D.get_overlapping_areas():
+		if %Area2D.get_overlapping_areas():
 			focused = true
 			custom_handle_input(event)
 		else:
@@ -33,7 +31,7 @@ func _input(event):
 
 func custom_handle_input(event):
 	if event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed && !panel_visible:
+		if event.pressed && !panel_visible && focused:
 			dragging = true
 			drag_start = get_global_mouse_position()
 			start_position = position
@@ -52,3 +50,7 @@ func custom_handle_input(event):
 @rpc("any_peer","call_local")
 func update_position(sent_final_position):
 	position = sent_final_position
+
+
+func _on_send_to_origin_pressed() -> void:
+	position = Vector2(0,0)

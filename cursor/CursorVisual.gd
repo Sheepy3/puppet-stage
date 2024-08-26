@@ -10,6 +10,12 @@ func _ready() -> void:
 	previous_mouse_position = get_global_mouse_position()
 
 func _process(delta:float) -> void:
+	target_radius = HttpHandler.local_volume
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(get_parent().name.to_int())
+
+func _physics_process(delta:float):
 	if is_multiplayer_authority():
 		var current_mouse_position:Vector2 = get_global_mouse_position()
 		var new_velocity: = (current_mouse_position - previous_mouse_position) / delta

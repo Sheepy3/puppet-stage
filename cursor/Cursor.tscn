@@ -8,10 +8,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_akd2o"]
 shader = ExtResource("2_036w2")
 shader_parameter/rot_angle = 0.0
-shader_parameter/circle_radius = 0.2
+shader_parameter/circle_radius = 0.14
 shader_parameter/drag = 0.0
 shader_parameter/outline_thickness = 0.01
-shader_parameter/official_color = Vector4(0.953, 0.533, 1, 1)
+shader_parameter/color_input = Vector4(0.1, 0.5, 1, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gm3d7"]
 properties/0/path = NodePath(".:position")

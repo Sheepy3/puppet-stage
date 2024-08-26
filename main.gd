@@ -23,12 +23,14 @@ func _ready():
 	analyzer_instance = AudioServer.get_bus_effect_instance(bus_index, 1)
 	multiplayer.peer_connected.connect(_spawn_cursor)
 	%SpawnPuppet.hide()
+	%TiledBg.position = %Camera2D.get_screen_center_position() 
 
 
 func _process(_delta):
 	if analyzer_instance:
 		var magnitude = analyzer_instance.get_magnitude_for_frequency_range(0, 10000,1)
-
+		HttpHandler.local_volume = remap(magnitude.length(),0,0.5,0.1,0.5)
+		print(HttpHandler.local_volume)
 
 func _on_host_pressed():
 	peer.create_server(135)
@@ -66,9 +68,11 @@ func _input(event:InputEvent):
 	if event.is_action_pressed("menu_open"):
 		menuopen = !menuopen
 		if menuopen:
-			%Menu.show()
+			%UI.show()
 		else:
-			%Menu.hide()
+			%UI.hide()
+	if event.is_action_pressed("reset_camera"):
+		%Camera2D.position = Vector2(0,0)
 
 
 @rpc("any_peer", "call_local")
@@ -76,3 +80,4 @@ func _spawn_puppet():
 	if multiplayer.is_server():
 		var new_puppet = puppet_scene.instantiate()
 		add_child(new_puppet, true)
+		new_puppet.position = $Camera2D.get_screen_center_position()
