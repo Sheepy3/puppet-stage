@@ -6,6 +6,7 @@ var Puppet
 func _ready() -> void:
 	Sprite = %Sprite2D
 	Puppet = get_parent()
+	_on_size_slider_value_changed(0.1)
 	pass # Replace with function body.
 
 

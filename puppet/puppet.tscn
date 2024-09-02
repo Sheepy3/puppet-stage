@@ -1,18 +1,31 @@
-[gd_scene load_steps=9 format=3 uid="uid://buk4hi5whq5mp"]
+[gd_scene load_steps=10 format=3 uid="uid://buk4hi5whq5mp"]
 
 [ext_resource type="Script" path="res://puppet/puppet_main.gd" id="1_05bsq"]
 [ext_resource type="Texture2D" uid="uid://cpaftfv0v0kea" path="res://balloon_kid.png" id="3_7tmck"]
 [ext_resource type="Script" path="res://puppet/puppet_sprite.gd" id="3_nox5t"]
 [ext_resource type="Script" path="res://puppet/puppet_ui.gd" id="4_e711u"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_tq54d"]
-font_size = 71
+[sub_resource type="Shader" id="Shader_jucgx"]
+code = "shader_type canvas_item;
+uniform vec4 color_input;
 
-[sub_resource type="LabelSettings" id="LabelSettings_3hgoq"]
-font_size = 24
+void vertex() {
+	COLOR = color_input;
+}
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_prsjb"]
-radius = 91.0055
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the material.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gss2d"]
+shader = SubResource("Shader_jucgx")
+shader_parameter/color_input = Vector4(0.2, 0.2, 0.2, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_icygr"]
 properties/0/path = NodePath(".:position")
@@ -31,43 +44,23 @@ properties/4/path = NodePath(".:flip")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 
+[sub_resource type="LabelSettings" id="LabelSettings_d2ifi"]
+font_size = 61
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1bq3"]
+font_size = 61
+
 [node name="puppet" type="Node2D"]
 script = ExtResource("1_05bsq")
 
-[node name="Sprite_Rotation_Point" type="Node2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 352)
-
-[node name="Sprite2D" type="Sprite2D" parent="Sprite_Rotation_Point"]
-unique_name_in_owner = true
-position = Vector2(0, -352)
+material = SubResource("ShaderMaterial_gss2d")
 texture = ExtResource("3_7tmck")
 script = ExtResource("3_nox5t")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Sprite_Rotation_Point"]
-visible = false
-metadata/_tab_index = 0
-
-[node name="NetworkStatus" type="Label" parent="Sprite_Rotation_Point/VBoxContainer"]
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "LOCAL"
-label_settings = SubResource("LabelSettings_tq54d")
-
-[node name="Coordinates" type="Label" parent="Sprite_Rotation_Point/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "coordinates"
-label_settings = SubResource("LabelSettings_3hgoq")
-
-[node name="Area2D" type="Area2D" parent="."]
-unique_name_in_owner = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-unique_name_in_owner = true
-shape = SubResource("CircleShape2D_prsjb")
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -116,14 +109,28 @@ value = 0.1
 layout_mode = 2
 text = "Send to origin"
 
-[node name="Possessor" type="Label" parent="Panel/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_icygr")
 
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[node name="Possessor" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 204.0
+offset_top = -15.0
+offset_right = 487.0
+offset_bottom = 69.0
+text = "aaaaaaaa"
+label_settings = SubResource("LabelSettings_d2ifi")
+
+[node name="Focused" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 205.0
+offset_top = 36.0
+offset_right = 252.0
+offset_bottom = 59.0
+text = "aaaaa"
+label_settings = SubResource("LabelSettings_h1bq3")
+
+[connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="pressed" from="Panel/VBoxContainer/Update" to="Panel" method="_on_update_pressed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/Size_Slider" to="Panel" method="_on_size_slider_value_changed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Send_To_origin" to="." method="_on_send_to_origin_pressed"]
