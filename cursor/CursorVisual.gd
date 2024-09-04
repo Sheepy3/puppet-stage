@@ -2,10 +2,10 @@ extends Sprite2D
 
 var shape_material:Material = material
 var previous_mouse_position:= Vector2()
-var mouse_velocity:= Vector2()
-var current_drag:float = 0.0
-var current_radius:float
-@export var target_radius: float = 0.2
+@export var mouse_velocity:= Vector2()
+@export var current_drag:float = 0.0
+@export var current_radius:float
+var target_radius: float = 0.2 ##synchronize
 func _ready() -> void:
 	previous_mouse_position = get_global_mouse_position()
 
@@ -34,3 +34,7 @@ func _physics_process(delta:float):
 		else:
 			current_drag = lerp(current_drag, 0.0, 0.05)  
 			shape_material.set_shader_parameter("drag",current_drag)
+	else:
+		shape_material.set_shader_parameter("circle_radius",(current_radius))
+		shape_material.set_shader_parameter("rot_angle",(mouse_velocity.angle()))
+		shape_material.set_shader_parameter("drag",current_drag)

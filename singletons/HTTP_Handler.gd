@@ -5,8 +5,8 @@ var image:Image
 var is_multiplayer:bool = false
 var local_volume:float
 var cursor_color:Color
-var port:int
-var ip:String
+var port:int =9999
+var ip:String ="localhost"
 
 func _ready() -> void:
 	request_completed.connect(self._on_request_completed)

@@ -91,7 +91,7 @@ func _on_send_to_origin_pressed() -> void:
 	position = Vector2(0,0)
 
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && get_window().has_focus():
 		if event.pressed == true:
 			for areas in %Area2D.get_overlapping_areas():

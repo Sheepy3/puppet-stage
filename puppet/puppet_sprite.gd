@@ -32,8 +32,8 @@ func default_scale_resize(image:Image) -> Image:
 func update_sprite(url):
 	#print(multiplayer.get_unique_id())
 	if multiplayer.is_server():
-		#Puppet.puppet_sprite = url
-		#Puppet.prev_sprite = Puppet.puppet_sprite
+		Puppet.puppet_sprite = url
+		Puppet.prev_sprite = Puppet.puppet_sprite
 		print("updating sprite")
 		var new_sprite = await HttpHandler.make_request(Puppet.puppet_sprite)
 		new_sprite = default_scale_resize(new_sprite)
@@ -48,6 +48,8 @@ func update_sprite(url):
 				#update_sprite_local.rpc(new_sprite.get_width(),new_sprite.get_height(),new_sprite.get_format(),new_sprite.get_data())
 		
 func generate_collision():
+	for child in %Area2D.get_children():
+		child.queue_free()
 	var bitmap = BitMap.new()
 	bitmap.create_from_image_alpha(texture.get_image())
 	var polys = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, texture.get_size()))
